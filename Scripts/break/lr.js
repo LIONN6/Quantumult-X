@@ -1,7 +1,7 @@
 /******************************
 [rewrite_local]
 
-^https:\/\/photos\.adobe\.io\/v2\/accounts* url script-response-body https://raw.githubusercontent.com/LIONN6/Quantumult-X/main/Scripts/break/lightroom.js
+^https:\/\/photos\.adobe\.io\/v2\/accounts* url script-response-body https://raw.githubusercontent.com/LIONN6/Quantumult-X/main/Scripts/break/lr.js
 
 [mitm] 
 
