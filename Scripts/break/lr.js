@@ -8,51 +8,26 @@
 hostname = photos.adobe.io
 
 *******************************/
-const encodedStrings = [
-    "wo06w7IEwqjDisO1wrXDlQ==", "w547CjigwqIEAMOy", "wpTCtFOc4Ck=", 
-    "LcOxw4A8", "w79PwroJVwrF+w==", "REgNw41+cgsw", 
-    "KcOBxNEQ4R==", "wp937Cn2w4k8BP==", 
-    "w5RLwrxUDpkk==", "w72jRxBY2L==", 
-    "Pic3w7xwS==", "EDV/23w==", 
-    "eMkIwosqw==", "wqBia8O1MQ==", 
-    "WHBXow49AzVX=="
-];
+// Assuming this is part of a larger script for Quantumult-X or similar software
+let body = $response.body;
 
-// 解密函数
-function decodeString(encodedStr) {
-    return atob(encodedStr).split('').map(char => {
-        return String.fromCharCode(char.charCodeAt(0) ^ 23);
-    }).join('');
-}
+// Remove a piece of code or pattern from the body
+body = body.replace(/while.{7}\n/, '');
 
-// 解密所有字符串
-const decodedStrings = encodedStrings.map(decodeString);
+// Parse the JSON body
+let response = JSON.parse(body);
 
-// 核心逻辑
-(function(strings) {
-    let state = true;
-    return function(func, args) {
-        const wrapper = state ? function() {
-            const result = func.apply(this, args);
-            state = false;
-            return result;
-        } : function() {};
-        return wrapper;
-    };
-})();
-
-const responseBody = $response.body.replace(/while.{7}\n/, '');
-const responseData = JSON.parse(responseBody);
-
-// 修改响应数据
-responseData['current_state'] = 'active';
-responseData['current_subs'] = {
-    'product_id': 'pro',
+// Modify the response object
+response['subscription'] = {
+    'status': 'active'
+};
+response['current_subs'] = {
+    'product_id': 'com.adobe.lr',
     'store': 'adobe',
     'purchase_date': '2019-10-10T16:32:10.254954Z',
     'sao': {
         'inpkg_CCES': '0',
-        'inpkg_CCLE': '1',
+        'inpkg_CCCLE': '1',
         'inpkg_CCSN': '0',
         'inpkg_CCSV': '0',
         'inpkg_LCCC': '0',
@@ -68,6 +43,16 @@ responseData['current_subs'] = {
         'storage_quota': '100'
     }
 };
+response['storage']['quota'] = {
+    'used': 0,
+    'limit': 0x10ccccccccd,
+    'display_limit': 0x10000000000,
+    'warn': 0xe700000000
+};
+response['storage']['is_unlimited'] = true;
 
-// 返回修改后的 JSON 数据
-$done({ body: JSON.stringify(responseData) });
+// Convert back to JSON string
+body = JSON.stringify(response);
+
+// Complete the response modification
+$done({ body: body });
