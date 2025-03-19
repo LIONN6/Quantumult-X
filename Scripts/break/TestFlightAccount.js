@@ -16,7 +16,7 @@ TestFlight账户管理脚本
 
 *********************************
 [rewrite_local]
-^https:\/\/testflight\.apple\.com\/v\d\/(app|account|invite)s\/ url script-analyze-echo-response https://raw.githubusercontent.com/NobyDa/Script/master/TestFlight/TestFlightAccount.js
+^https:\/\/testflight\.apple\.com\/v\d\/(app|account|invite)s\/ url script-analyze-echo-response https://raw.githubusercontent.com/LIONN6/Quantumult-X/main/Scripts/break/TestFlightAccount.js
 
 [mitm]
 hostname = testflight.apple.com
