@@ -1,0 +1,49 @@
+
+host-suffix, fastimage.uve.weibo.com, reject
+host-suffix, adimg.vue.weibo.com, reject
+host-suffix, zymo.mps.weibo.com, reject
+host-suffix, weibomingzi.com, reject
+host-suffix, sdkapp.uve.weibo.com, reject
+host-suffix, promote.biz.weibo.cn, reject
+host-suffix, gw5.push.mcp.weibo.cn, reject
+host-suffix, gw6.push.mcp.weibo.cn, reject
+host-suffix, game.weibo.cn, reject
+host-suffix, adimg.uve.weibo.com, reject
+host-suffix, game.weibo.com, reject
+host-suffix, ads.viber.com, reject
+host-suffix, ads-d.viber.com, reject
+host-suffix, ads.aws.viber.com, reject
+host-suffix, alitui.weibo.com, reject
+host-suffix, dp.im.weibo.cn, reject
+host-suffix, biz.weibo.com.cn, reject
+host-suffix, biz.weibo.com, reject
+host-suffix, click.uve.weibo.com, reject
+host-suffix, wax.weibo.com, reject
+host-suffix, wbapp.uve.weibo.com, reject
+host-suffix, widget.weibo.com, reject
+host-suffix, dsp.edm.weibo.cn, reject
+host-suffix, alitui.weibo.com.cn, reject
+host-suffix, tui.weibo.com, reject
+host-suffix, wax.weibo.com.cn, reject
+host-suffix, ad.weibo.com, reject
+# 微博开屏广告预加载
+host, bootpreload.uve.weibo.com, reject
+
+# 热门视频 | 热推荐
+^https?:\/\/api\.weibo\.cn\/\d\/(cardlist\?v_f=\d|ad\/weibointl\?) WeiboOverseas url-and-header echo-response text/html echo-response https://raw.githubusercontent.com/LIONN6/Quantumult-X/refs/heads/main/Scripts/template/reject-dict.json
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=hot_search_users WeiboOverseas url-and-header echo-response text/html echo-response https://raw.githubusercontent.com/LIONN6/Quantumult-X/refs/heads/main/Scripts/template/reject-dict.json
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=get_coopen_ads WeiboOverseas url-and-header echo-response text/html echo-response https://raw.githubusercontent.com/LIONN6/Quantumult-X/refs/heads/main/Scripts/template/reject-dict.json
+
+# 微博轻享版热搜词
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=get_searching_info WeiboOverseas url-and-header reject-dict
+# 微博轻享版banner广告
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=trends& WeiboOverseas url-and-header jsonjq-response-body 'del(.data.banner)'
+# 趋势页 | 开屏广告 | 用户中心 | 热搜置顶 | 我的页面 尊享专属 | 瀑布流去广告
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?(ct=(feed&a=trends|user&a=get_searching_info)|a=(get_coopen_ads|user_center|search_topic|open_app&auth|icon_center)) WeiboOverseas url-and-header script-response-body https://raw.githubusercontent.com/LIONN6/Quantumult-X/refs/heads/main/Scripts/adblock/weibo_index.js
+^https?:\/\/api\.weibo\.cn\/\d\/statuses\/.*timeline WeiboOverseas url-and-header script-response-body https://raw.githubusercontent.com/LIONN6/Quantumult-X/refs/heads/main/Scripts/adblock/weibo_index.js
+^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php WeiboOverseas url-and-header script-response-body https://raw.githubusercontent.com/LIONN6/Quantumult-X/refs/heads/main/Scripts/adblock/weibo_index.js
+
+# 私信中绿洲的擦边诱导推广
+^https:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=treehole&auth= url reject-dict
+
+hostname = api.weibo.cn, weibointl.api.weibo.cn, sdkapp.uve.weibo.com
